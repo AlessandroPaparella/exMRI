@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package di.uniba.it.mri2021.lucene.se;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
@@ -28,10 +29,15 @@ public class IndexSE {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
+    	FieldType ft = new FieldType(TextField.TYPE_NOT_STORED);
+    	ft.setStoreTermVectors(true);
+    	ft.setStoreTermVectorPositions(true);
+    	System.out.println(args.length);
         if (args.length > 1) {
             File dir = new File(args[0]);
             if (dir.isDirectory()) {
                 FSDirectory fsdir = FSDirectory.open(new File(args[1]).toPath());
+                System.out.println(args[1]);
                 IndexWriterConfig iwc = new IndexWriterConfig(new StandardAnalyzer());
                 iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
                 IndexWriter writer = new IndexWriter(fsdir, iwc);
@@ -40,7 +46,8 @@ public class IndexSE {
                     if (file.isFile() && file.getName().endsWith(".txt")) {
                         Document doc = new Document();
                         doc.add(new StringField("id", file.getAbsolutePath(), Field.Store.YES));
-                        doc.add(new TextField("text", new FileReader(file)));
+                        doc.add(new Field("text", new FileReader(file), ft));
+                        //doc.add(new TextField("text", new FileReader(file)));
                         writer.addDocument(doc);
                     }
                 }
