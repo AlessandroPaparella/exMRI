@@ -1,4 +1,2 @@
-MRI A.A. 2020-2021
+Esercizi Lab MRI
 =====================
-
-Repository per il corso di Metodi per il Ritrovamento dell'Informazione - Laurea Triennale in Informatica - Università degli Studi di Bari Aldo Moro
