@@ -7,6 +7,7 @@ package di.uniba.it.mri2021.lucene.se;
 
 import java.io.File;
 import java.io.IOException;
+
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.queryparser.classic.ParseException;
