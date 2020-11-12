@@ -36,6 +36,7 @@ public class testBoost {
 		QueryParser qp = new QueryParser("text", new EnglishAnalyzer());
 		QueryParser qpTitle = new QueryParser("title", new EnglishAnalyzer());
 		QueryParser qpAuth = new QueryParser("authors", new EnglishAnalyzer());
+		QueryParser qpBiblio = new QueryParser("biblio", new EnglishAnalyzer());
 		PrintWriter outFile = null;
 		outFile = new PrintWriter(new FileWriter("./resources/cran/resultsBoost.out"));
 		Integer rank = 1, id_q=1;
@@ -50,6 +51,9 @@ public class testBoost {
 			Query qLuceneA = qpAuth.parse(QueryParserBase.escape(q.query));
 			qLuceneA = new BoostQuery(qLuceneA, 0.3f);
 			qb.add(qLuceneA, Occur.SHOULD);
+			Query qLuceneB = qpBiblio.parse(QueryParserBase.escape(q.query));
+			qLuceneB = new BoostQuery(qLuceneB, 0.4f);
+			qb.add(qLuceneB, Occur.SHOULD);
 			TopDocs topdocs = searcher.search(qb.build(), 100);
 			for (ScoreDoc sdoc : topdocs.scoreDocs) {
 				//append to results file
