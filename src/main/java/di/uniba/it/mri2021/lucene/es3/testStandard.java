@@ -31,7 +31,7 @@ public class testStandard {
 		IndexSearcher searcher = new IndexSearcher(DirectoryReader.open(fsdir));
 		QueryParser qp = new QueryParser("text", new StandardAnalyzer());
 		PrintWriter outFile = null;
-		outFile = new PrintWriter(new FileWriter("./resources/cran/results.out"));
+		outFile = new PrintWriter(new FileWriter("./resources/cran/resultsStandard.out"));
 		Integer rank = 1, id_q=1;
 		for(CollectionLoader.MyQuery q : loader.querySet) {
 			Query qLucene = qp.parse(QueryParserBase.escape(q.query));
