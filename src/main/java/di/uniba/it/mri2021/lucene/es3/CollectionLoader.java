@@ -63,6 +63,7 @@ public class CollectionLoader {
 		cran = new BufferedReader(new FileReader(docFile));
 		String l;
 		FieldType ft = new FieldType(TextField.TYPE_NOT_STORED);
+		ft.setStoreTermVectors(true);
 		FSDirectory fsdir = FSDirectory.open(new File(indexDir).toPath());
 		IndexWriterConfig iwc = new IndexWriterConfig(a);
 		iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
